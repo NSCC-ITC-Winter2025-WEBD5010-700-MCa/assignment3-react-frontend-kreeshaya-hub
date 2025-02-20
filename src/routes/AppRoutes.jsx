@@ -8,6 +8,7 @@ import Customers from '../pages/Customers';
 import Subscriptions from '../pages/Subscriptions';
 import Books from '../pages/Books';
 import BookCreate from '../components/books/BookCreate';
+import BookEdit from '../components/books/BookEdit';
 
 const router = createBrowserRouter([
   {
@@ -49,6 +50,10 @@ const router = createBrowserRouter([
           {
             path: 'create',
             element: <BookCreate/>
+          },
+          {
+            path: ':id/edit',
+            element: <BookEdit/>
           }
         ]
       },
