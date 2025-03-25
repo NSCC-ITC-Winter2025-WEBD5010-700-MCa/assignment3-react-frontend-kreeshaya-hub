@@ -1,25 +1,23 @@
-import { use, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
-import { useQuery, useMutation } from '@tanstack/react-query'
+import { useParams, useNavigate } from 'react-router-dom'
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import BookForm from './BookForm'
 
 function BookEdit () {
     const { id } = useParams()
-    const { handleSubmit, formState: { errors }, setValue } = useForm()
     const navigate = useNavigate()
     const queryClient = useQueryClient()
 
     const { data } = useQuery({
         queryKey: ['books', id],
         queryFn: async () => {
-            const response = await fetch(`http://localhost:3000/books/${id}`)
+            const response = await fetch(`${import.meta.env.VITE_BOOKS_API_URL}/${id}`)
             return response.json()
         }
     })
 
     const editBookMutation = useMutation({
         mutationFn: async (data) => { 
-            const respone = await fetch(`http://localhost:3000/books/${id}`, {
+            const respone = await fetch(`${import.meta.env.VITE_BOOKS_API_URL}/${id}`, {
                 method: 'PUT',
                 headers: { 'content-type': 'application/json' },
                 body: Json.stringify(data)
@@ -33,19 +31,7 @@ function BookEdit () {
         }
     })
 
-    useEffect(() => {
-        console.log(data)
-        // pre-populate the form
-        // if (data) {
-        //     setValue('title', data.title)
-        //     setValue('author', data.author)
-        //     setValue('published_year', data.published_year)
-        //     setValue('genre', data.genre)
-        // }
-    }, [data])
-
     const processData = (data) => { 
-        console.log(data)
         editBookMutation.mutate(data)
     }
     

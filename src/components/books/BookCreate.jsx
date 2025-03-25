@@ -1,21 +1,16 @@
+import React from 'react'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
 import BookForm from './BookForm'
 
 function BookCreate() {
 
-    const { handleSubmit, formState: { errors } } = useForm()
     const queryClient = useQueryClient()
     const navigate = useNavigate()
 
-    const processData = (data) => {
-        console.log(data)
-        createBookMutation.mutate(data)
-    }
-
     const createBookMutation = useMutation({
         mutationFn: async (data) => {
-            const response = await fetch('http://localhost:3000/books', {
+            const response = await fetch(`${import.meta.env.VITE_BOOKS_API_URL}`, {
                 method: 'POST',
                 headers: { 'content-type': 'application/json' },
                 body: JSON.stringify(data)
@@ -27,6 +22,10 @@ function BookCreate() {
                 navigate('/admin/books')
         }
     })
+
+    const processData = (data) => {
+        createBookMutation.mutate(data)
+    }
 
   return (
     <div className="max-w-lg mx-auto bg-white shadow-md rounded-lg p-6">
