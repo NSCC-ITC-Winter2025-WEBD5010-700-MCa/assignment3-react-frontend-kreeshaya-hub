@@ -12,25 +12,37 @@ export default function AnimeCreate() {
         mutationFn: async (data) => {
             const response = await fetch(`${import.meta.env.VITE_ANIME_API_URL}`, {
                 method: 'POST',
-                headers: { 'content-type': 'application/json' },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data)
             })
-            return response.json()
+
+            if (!response.ok) {
+                throw new Error(`Failed to add anime: ${response.statusText}`)
+            }
+
+            const result = await response.json()
+            return result
         },
         onSuccess: () => {
-            queryClient.invalidateQueries(['animeData']),
-                navigate('/admin/anime')
+            window.alert('Anime added successfully!')
+            queryClient.invalidateQueries(['animeData'])
+            navigate('/admin/anime')
+        },
+        onError: (error) => {
+            console.error('Error adding anime:', error)
+            window.alert('Failed to add anime!')
         }
     })
 
     const processData = (data) => {
+        console.log('Form Data:', data)  // Verify data structure
         createAnimeMutation.mutate(data)
     }
 
-  return (
-    <div className="max-w-lg mx-auto bg-white shadow-md rounded-lg p-6">
-        <h2 className="text-2xl font-bold mb-4 text-gray-800">Create New Anime</h2>
-       <AnimeForm onDataCollected = {processData}/>
-    </div>
-)
+    return (
+        <div className="max-w-lg mx-auto bg-white shadow-md rounded-lg p-6">
+            <h2 className="text-2xl font-bold mb-4 text-gray-800">Create New Anime</h2>
+            <AnimeForm onDataCollected={processData} />
+        </div>
+    )
 }

@@ -11,7 +11,7 @@ export default function AnimeForm({ onDataCollected, initialData }) {
             setValue('published_year', initialData.published_year)
             setValue('genre', initialData.genre)
             setValue('characters', initialData.characters)
-            setValue('ratings', initialData.ratings)
+            setValue('ratings', initialData.ratings.critics)
         }
     }, [initialData])
 
@@ -49,6 +49,27 @@ export default function AnimeForm({ onDataCollected, initialData }) {
                     {...register('genre', { required: 'Genre is required!' })}
                     type="text"
                     placeholder="Genre"
+                    className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+                {errors.genre && <p className="text-red-500 text-sm mt-1">{errors.title.message}</p>}
+            </div>
+            <div>
+                <input
+                    {...register('characters', { required: 'Characters are required!' })}
+                    type="text"
+                    placeholder="Characters"
+                    className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+                {errors.genre && <p className="text-red-500 text-sm mt-1">{errors.title.message}</p>}
+            </div>
+            <div>
+                <input
+                    {...register('ratings', { required: 'Rating is required!' })}
+                    type="number"
+                    step="0.1"
+                    min="0"
+                    max="5"
+                    placeholder="Rating"
                     className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
                 {errors.genre && <p className="text-red-500 text-sm mt-1">{errors.title.message}</p>}
