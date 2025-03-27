@@ -40,7 +40,6 @@ const handleDelete = (animeId) => {
                   <th className="border border-gray-300 px-4 py-2 text-left">Year</th>
                   <th className="border border-gray-300 px-4 py-2 text-left">Genre</th>
                   <th className="border border-gray-300 px-4 py-2 text-center">Characters</th>
-                  <th className="border border-gray-300 px-4 py-2 text-center">Ratings</th>
                   <th className="border border-gray-300 px-4 py-2 text-center">Actions</th>
                 </tr>
               </thead>
@@ -52,8 +51,8 @@ const handleDelete = (animeId) => {
                     <td className="border border-gray-300 px-4 py-2">{anime.published_year}</td>
                     <td className="border border-gray-300 px-4 py-2">{anime.genre.join(', ')}</td>
                     <td className="border border-gray-300 px-4 py-2">{anime.characters.join(', ')}</td>
-                    <td className="border border-gray-300 px-4 py-2">{anime.ratings.critics}</td>
                     <td className="border border-gray-300 px-4 py-2 text-center space-x-1">
+                      <button className="bg-green-500 text-white px-2 py-1 text-sm rounded hover:bg-green-600">Details</button>
                       <button onClick={ () => {navigate(`${anime._id}/edit`)}} className="bg-blue-500 text-white px-2 py-1 text-sm rounded hover:bg-blue-600">Edit</button>
                       <button onClick={ () => {handleDelete (anime._id)}} className="bg-red-500 text-white px-2 py-1 text-sm rounded hover:bg-red-600">Delete</button>
                     </td>

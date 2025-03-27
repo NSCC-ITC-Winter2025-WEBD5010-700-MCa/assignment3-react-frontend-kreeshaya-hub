@@ -15,12 +15,15 @@ export default function AnimeCreate() {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data)
             })
-
+    
             if (!response.ok) {
                 throw new Error(`Failed to add anime: ${response.statusText}`)
             }
-
+    
             const result = await response.json()
+    
+    
+            console.log('Formatted Characters:', result.characters)  // Verify the format
             return result
         },
         onSuccess: () => {
@@ -33,11 +36,14 @@ export default function AnimeCreate() {
             window.alert('Failed to add anime!')
         }
     })
+    
 
     const processData = (data) => {
-        console.log('Form Data:', data)  // Verify data structure
+        data.characters = data.characters.split(',').map(c => c.trim())  
+        data.genre = data.genre.split(',').map(g => g.trim())
         createAnimeMutation.mutate(data)
-    }
+    }    
+
 
     return (
         <div className="max-w-lg mx-auto bg-white shadow-md rounded-lg p-6">
