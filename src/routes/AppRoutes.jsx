@@ -9,6 +9,9 @@ import Subscriptions from '../pages/Subscriptions';
 import Books from '../pages/Books';
 import BookCreate from '../components/books/BookCreate';
 import BookEdit from '../components/books/BookEdit';
+import Anime from '../pages/Anime';
+import AnimeCreate from '../components/anime/AnimeCreate';
+import AnimeEdit from '../components/anime/AnimeEdit';
 
 const router = createBrowserRouter([
   {
@@ -57,8 +60,21 @@ const router = createBrowserRouter([
           }
         ]
       },
+      {
+        path: 'anime',
+        element: <Anime />,
+        children: [
+          {
+            path: 'create',
+            element: <AnimeCreate/>
+          },
+          {
+            path: ':id/edit',
+            element: <AnimeEdit/>
+          }
+        ]
+      }
 
-      
       
     ],
   },
