@@ -47,7 +47,8 @@ export default function AnimeEdit () {
     })
     
     const processData = (data) => {
-        console.log('Form Data:', data)
+        data.characters = data.characters.split(',').map(c => c.trim())  
+        data.genre = data.genre.split(',').map(g => g.trim())
         editAnimeMutation.mutate(data)
     }
     
